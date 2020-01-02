@@ -52,11 +52,13 @@ file(GLOB GAME_HEADER ${PROJECT_SOURCE_DIR}/RakNet/Source/*.h)
 # add cross-platforms source files and header files 
 list(APPEND GAME_SOURCE
      Classes/AppDelegate.cpp
-     Classes/HelloWorldScene.cpp
+     Classes/ScanningScene.cpp
+     Classes/MessageQueue.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
-     Classes/HelloWorldScene.h
+     Classes/ScanningScene.h
+     Classes/MessageQueue.h
      )
 
 if(ANDROID)
