@@ -21,6 +21,8 @@
 
 class NetworkObject {
 public:
+    NetworkObject& operator=(const NetworkObject& object);
+
     virtual bool initWithJson(nlohmann::json& json);
 
     virtual std::shared_ptr<NetworkObject> clone();
@@ -48,6 +50,8 @@ public:
 
     void setPosition(const cocos2d::Vec2& position);
     inline const cocos2d::Vec2& getPosition() const;
+
+    inline cocos2d::Sprite* getSprite() { return _sprite; }
 
 private:
     cocos2d::Sprite* _sprite;

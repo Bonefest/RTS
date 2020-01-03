@@ -56,6 +56,7 @@ list(APPEND GAME_SOURCE
      Classes/GridDrawer.cpp
      Classes/NetworkObjectReplica.cpp
      Classes/NetworkObject.cpp
+     Classes/GameClassesManager.cpp
      Classes/json.hpp
      )
 list(APPEND GAME_HEADER
@@ -64,6 +65,9 @@ list(APPEND GAME_HEADER
      Classes/GridDrawer.h
      Classes/NetworkObjectReplica.h
      Classes/NetworkObject.h
+     Classes/Building.h
+     Classes/Unit.h
+     Classes/GameClassesManager.h
      )
 
 if(ANDROID)
