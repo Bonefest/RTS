@@ -12,6 +12,10 @@ public:
     void render(cocos2d::Renderer* renderer, const cocos2d::Mat4& eyeTransform, const cocos2d::Mat4* eyeProjection);
     //void setRakNetPeer(RakNet::RakPeerInterface* peer);
     void update(float delta);
+
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
 private:
     GridDrawer gridDrawer;
 };
