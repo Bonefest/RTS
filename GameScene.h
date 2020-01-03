@@ -18,6 +18,7 @@ public:
     void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
 private:
     GridDrawer gridDrawer;
+    //BackgroundTerrainGenerator - генерирует тайлы для заднего фона игры(не нужно реплицировать)
 };
 
 #endif // GAMESCENE_H_INCLUDED

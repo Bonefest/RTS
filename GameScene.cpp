@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "NetworkObject.h"
 
 GameScene* GameScene::createScene() {
     return GameScene::create();
@@ -9,6 +10,8 @@ bool GameScene::init() {
 
     if(!gridDrawer.init(this, cocos2d::Color4F::WHITE, cocos2d::Vec2::ZERO, cocos2d::Size(32, 32), 24, 24))
         return false;
+
+    //if(!classesGenerator.init("classes.json")) return false;
 
     cocos2d::EventListenerTouchOneByOne* listener = cocos2d::EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
