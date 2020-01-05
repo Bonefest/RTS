@@ -1,6 +1,8 @@
 #include "GameScene.h"
 #include "GameClassesManager.h"
 
+#include "ui/UIScrollView.h"
+
 GameScene* GameScene::createScene() {
     return GameScene::create();
 }
@@ -13,13 +15,28 @@ bool GameScene::init() {
 
     if(!GameClassesManager::getInstance()->parseJsonFile("classes.json")) return false;
 
-    addChild(GameClassesManager::getInstance()->getBuilding("Castle")->clone()->getSprite());
+    cocos2d::ui::ScrollView* view = cocos2d::ui::ScrollView::create();
+    cocos2d::Sprite* test1 = cocos2d::Sprite::create("HelloWorld.png");
+    cocos2d::Sprite* test2 = cocos2d::Sprite::create("HelloWorld.png");
+    test2->setPositionX(test2->getPositionX() + test2->getContentSize().width);
+    cocos2d::Sprite* test3 = cocos2d::Sprite::create("HelloWorld.png");
+    test3->setPositionX(test3->getPositionX() + 2*test3->getContentSize().width);
+    //view->addChild(GameClassesManager::getInstance()->getBuilding("Castle")->clone()->getSprite());
+    view->setDirection(cocos2d::ui::ScrollView::Direction::HORIZONTAL);
+    view->setInnerContainerSize(cocos2d::Size(256.0f, 32.0f));
+    view->setContentSize(cocos2d::Size(128.0f, 32.0f));
+    view->addChild(test1);
+    view->addChild(test2);
+    view->addChild(test3);
+    addChild(view);
 
     cocos2d::EventListenerTouchOneByOne* listener = cocos2d::EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
     //listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
     listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+
 
     scheduleUpdate();
     return true;
