@@ -56,6 +56,8 @@ public:
 private:
     cocos2d::Sprite* _sprite;
 
+    //StateMachine с уже реализованными состояними? Просто дать возможность аля setState(BUILDING) или setState(IDLE)
+
     std::string _name;
     std::string _description;
 

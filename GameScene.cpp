@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "GameClassesManager.h"
+#include "MediaManager.h"
 #include "GameLayer.h"
 
 GameScene* GameScene::createScene() {
@@ -12,6 +13,8 @@ bool GameScene::init() {
     visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
 
     if(!GameClassesManager::getInstance()->parseJsonFile("classes.json")) return false;
+    MediaManager::getInstance()->loadSpritesheet("sheet.plist");
+
     if(!initGameLayer()) return false;
 
     return true;

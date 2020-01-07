@@ -6,4 +6,6 @@ public:
     virtual void execute() = 0;
 };
 
+class
+
 #endif // COMMAND_H_INCLUDED
