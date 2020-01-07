@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "GameClassesManager.h"
+#include "GameLayer.h"
 
 GameScene* GameScene::createScene() {
     return GameScene::create();
@@ -8,23 +9,27 @@ GameScene* GameScene::createScene() {
 bool GameScene::init() {
     if(!cocos2d::Scene::init()) return false;
 
-    if(!gridDrawer.init(this, cocos2d::Color4F::WHITE, cocos2d::Vec2::ZERO, cocos2d::Size(32, 32), 24, 24))
-        return false;
+    visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
 
     if(!GameClassesManager::getInstance()->parseJsonFile("classes.json")) return false;
+    if(!initGameLayer()) return false;
 
-    addChild(GameClassesManager::getInstance()->getBuilding("Castle")->clone()->getSprite());
-
-    cocos2d::EventListenerTouchOneByOne* listener = cocos2d::EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-    //listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
-    listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-    scheduleUpdate();
     return true;
 }
 
+
+bool GameScene::initGameLayer() {
+    _gameLayer = GameLayer::createGameLayer();
+    if(_gameLayer == nullptr) return false;
+
+    _gameLayer->setContentSize(cocos2d::Size(0.8*visibleSize));
+    _gameLayer->setPosition(0.1*visibleSize);
+    _gameLayer->setInnerContainerSize(cocos2d::Size(27 * 32, 27 * 32));  //TODO: загрузка конфигурации из json
+    _gameLayer->setInnerContainerPosition(_gameLayer->getInnerContainerSize() * 0.5f);
+    addChild(_gameLayer);
+
+    return true;
+}
 
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
     return true;
@@ -34,12 +39,6 @@ void GameScene::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event) {
     cocos2d::Vec2 mover = (touch->getStartLocation() - touch->getLocation()) * 0.05;
     getDefaultCamera()->setPosition(getDefaultCamera()->getPosition() + mover);
 
-}
-
-
-void GameScene::render(cocos2d::Renderer* renderer, const cocos2d::Mat4& eyeTransform, const cocos2d::Mat4* eyeProjection) {
-    cocos2d::Scene::render(renderer, eyeTransform, eyeProjection);
-    gridDrawer.draw();
 }
 
 void GameScene::update(float delta) {

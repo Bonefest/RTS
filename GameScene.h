@@ -3,13 +3,13 @@
 
 #include "cocos2d.h"
 #include "GridDrawer.h"
+#include "GameLayer.h"
 
 class GameScene: public cocos2d::Scene {
 public:
     CREATE_FUNC(GameScene);
     static GameScene* createScene();
     bool init();
-    void render(cocos2d::Renderer* renderer, const cocos2d::Mat4& eyeTransform, const cocos2d::Mat4* eyeProjection);
     //void setRakNetPeer(RakNet::RakPeerInterface* peer);
     void update(float delta);
 
@@ -17,7 +17,11 @@ public:
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
     void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
 private:
-    GridDrawer gridDrawer;
+    bool initGameLayer();
+
+    GameLayer* _gameLayer;
+
+    cocos2d::Size visibleSize;
     //BackgroundTerrainGenerator - генерирует тайлы для заднего фона игры(не нужно реплицировать)
 };
 

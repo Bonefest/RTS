@@ -57,6 +57,8 @@ list(APPEND GAME_SOURCE
      Classes/NetworkObjectReplica.cpp
      Classes/NetworkObject.cpp
      Classes/GameClassesManager.cpp
+     Classes/ActionScroller.cpp
+     Classes/GameLayer.cpp
      Classes/json.hpp
      )
 list(APPEND GAME_HEADER
@@ -67,6 +69,8 @@ list(APPEND GAME_HEADER
      Classes/NetworkObject.h
      Classes/Building.h
      Classes/Unit.h
+     Classes/ActionScroller.h
+     Classes/GameLayer.h
      Classes/GameClassesManager.h
      )
 

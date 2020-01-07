@@ -7,8 +7,8 @@ class GridDrawer {
 public:
     GridDrawer();
 
-    bool init(cocos2d::Scene* scene);
-    bool init(cocos2d::Scene* scene,
+    bool init(cocos2d::Node* scene);
+    bool init(cocos2d::Node* scene,
               const cocos2d::Color4F& color,
               const cocos2d::Vec2& origin,
               const cocos2d::Size& cellSize,

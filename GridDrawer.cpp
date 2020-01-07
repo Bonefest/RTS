@@ -5,7 +5,7 @@ GridDrawer::GridDrawer(): _drawer(nullptr),
                           _verticalNumber(0),
                           _visible(true) { }
 
-bool GridDrawer::init(cocos2d::Scene* scene) {
+bool GridDrawer::init(cocos2d::Node* scene) {
     _drawer = cocos2d::DrawNode::create();
     if(_drawer == nullptr) {
         return false;
@@ -14,7 +14,7 @@ bool GridDrawer::init(cocos2d::Scene* scene) {
     return true;
 }
 
-bool GridDrawer::init(cocos2d::Scene* scene,
+bool GridDrawer::init(cocos2d::Node* scene,
                       const cocos2d::Color4F& color,
                       const cocos2d::Vec2& origin,
                       const cocos2d::Size& cellSize,
