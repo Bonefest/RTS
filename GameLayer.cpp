@@ -1,6 +1,7 @@
 #include "GameLayer.h"
 #include "GameClassesManager.h"
 #include "ActionScroller.h"
+#include "MediaManager.h"
 
 GameLayer* GameLayer::createGameLayer() {
     return GameLayer::create();
@@ -19,12 +20,19 @@ bool GameLayer::init() {
     ActionScroller* scroller = ActionScroller::createActionScroller();
     scroller->setContentSize(cocos2d::Size(320, 64));
     scroller->setDirection(ActionScroller::Direction::HORIZONTAL);
-    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
-    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
-    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
-    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
-    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
-    scroller->setPosition(cocos2d::Vec2(0, 0));
+    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Attack.png")));
+    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
+    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
+    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
+    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
+    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
+    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
+    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
+
+//    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
+//    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
+//    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
+    scroller->setPosition(cocos2d::Vec2(196, 196));
     scroller->setScrollBarEnabled(false);
     addChild(scroller);
 

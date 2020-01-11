@@ -17,6 +17,11 @@ bool GameScene::init() {
 
     if(!initGameLayer()) return false;
 
+    //DEBUG
+    _debugDrawer = cocos2d::DrawNode::create();
+    addChild(_debugDrawer);
+    scheduleUpdate();
+
     return true;
 }
 
@@ -45,14 +50,10 @@ void GameScene::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event) {
 }
 
 void GameScene::update(float delta) {
-    cocos2d::Vec2 cameraPosition = getDefaultCamera()->getPosition();
-    cameraPosition.x = std::max(-3*32.0f, cameraPosition.x);
-    cameraPosition.x = std::min(27*32.0f, cameraPosition.x);
-
-    cameraPosition.y = std::max(-3*32.0f, cameraPosition.y);
-    cameraPosition.y = std::min(27*32.0f, cameraPosition.y);
-
-    getDefaultCamera()->setPosition(cameraPosition);
+    _debugDrawer->clear();
+    _debugDrawer->drawRect(_gameLayer->getPosition(),
+                           cocos2d::Vec2(_gameLayer->getContentSize()) + _gameLayer->getPosition(),
+                           cocos2d::Color4F::WHITE);
 
 
 }

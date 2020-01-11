@@ -58,3 +58,7 @@ cocos2d::Animation* MediaManager::createAnimationFromJson(nlohmann::json& jsonPa
 
     return animation;
 }
+
+cocos2d::SpriteFrame* MediaManager::getSpriteFrame(const std::string& frameName) {
+    return _frameCache->getSpriteFrameByName(frameName);
+}

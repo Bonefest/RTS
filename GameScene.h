@@ -20,6 +20,7 @@ private:
     bool initGameLayer();
 
     GameLayer* _gameLayer;
+    cocos2d::DrawNode* _debugDrawer;
 
     cocos2d::Size visibleSize;
     //BackgroundTerrainGenerator - генерирует тайлы для заднего фона игры(не нужно реплицировать)

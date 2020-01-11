@@ -21,7 +21,7 @@ public:
     bool onCloseButtonTouched(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType type);
 private:
     cocos2d::ui::Button* _closeButton;
-    cocos2d::Size _contextSize;
+    cocos2d::Vec2 _contextOffset;
 };
 
 #endif // ACTIONSCROLLER_H_INCLUDED
