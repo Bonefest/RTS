@@ -2,6 +2,7 @@
 #include "GameClassesManager.h"
 #include "ActionScroller.h"
 #include "MediaManager.h"
+#include "Action.h"
 
 GameLayer* GameLayer::createGameLayer() {
     return GameLayer::create();
@@ -18,16 +19,13 @@ bool GameLayer::init() {
 
 
     ActionScroller* scroller = ActionScroller::createActionScroller();
-    scroller->setContentSize(cocos2d::Size(320, 64));
-    scroller->setDirection(ActionScroller::Direction::HORIZONTAL);
-    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Attack.png")));
-    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
-    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
-    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
-    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
-    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
-    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
-    scroller->addChild(cocos2d::Sprite::createWithSpriteFrame(MediaManager::getInstance()->getSpriteFrame("Action_Move.png")));
+    scroller->setContentSize(cocos2d::Size(150, 64));
+    scroller->setDirection(ActionScroller::Direction::VERTICAL);
+    scroller->addChild(Action::createAction("Action_Build.png", "Upgrade building bla bla bla bla bla"));
+    scroller->addChild(Action::createAction("Action_Attack.png", "Attack selected unit"));
+    scroller->addChild(Action::createAction("Action_Attack.png", "Attack selected unit"));
+
+    //addChild(action);
 
 //    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
 //    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
