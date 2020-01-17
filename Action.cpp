@@ -41,6 +41,8 @@ bool Action::init(const std::string& iconName,
     _icon->addTouchEventListener(CC_CALLBACK_2(Action::onIconClicked, this));
     _useButton->addTouchEventListener(CC_CALLBACK_2(Action::onUseButtonClicked, this));
 
+    _command = std::make_shared<NullCommand>();
+
     return true;
 }
 
@@ -76,4 +78,18 @@ void Action::allignElements() {
 
 bool Action::isInitialized() {
     return (_icon != nullptr && _title != nullptr && _useButton != nullptr);
+}
+
+
+bool Action::onIconClicked(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType type) {
+    if(type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
+        //showInfo
+    }
+}
+
+bool Action::onUseButtonClicked(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType type) {
+    if(type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
+        removeFromParentAndCleanup(true);
+        _command->execute();
+    }
 }

@@ -59,6 +59,10 @@ list(APPEND GAME_SOURCE
      Classes/GameClassesManager.cpp
      Classes/ActionScroller.cpp
      Classes/GameLayer.cpp
+     Classes/MediaManager.cpp
+     Classes/Action.cpp
+     Classes/Command.cpp
+     Classes/MessageBox.cpp
      Classes/json.hpp
      )
 list(APPEND GAME_HEADER
@@ -72,6 +76,10 @@ list(APPEND GAME_HEADER
      Classes/ActionScroller.h
      Classes/GameLayer.h
      Classes/GameClassesManager.h
+     Classes/MediaManager.h
+     Classes/Command.h
+     Classes/MessageBox.h
+     Classes/Action.h
      )
 
 if(ANDROID)

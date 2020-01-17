@@ -1,8 +1,7 @@
 #include "GameLayer.h"
 #include "GameClassesManager.h"
-#include "ActionScroller.h"
 #include "MediaManager.h"
-#include "Action.h"
+#include "MessageBox.h"
 
 GameLayer* GameLayer::createGameLayer() {
     return GameLayer::create();
@@ -17,23 +16,17 @@ bool GameLayer::init() {
     if(!gridDrawer.init(this, cocos2d::Color4F::WHITE, cocos2d::Vec2(64, 64), cocos2d::Size(32, 32), 24, 24))
         return false;
 
+    MessageBox* messageBox = MessageBox::createBox("Castle", cocos2d::Size(200, 300));
+    cocos2d::Label* desc = cocos2d::Label::createWithTTF("glsdlgsdlgl gsldgls glglsdlglsdg l.",
+                                                         "fonts/arial.ttf", 26);
+    messageBox->addElement(desc);
+    messageBox->setAnchorPoint(cocos2d::Vec2::ANCHOR_MIDDLE);
+    messageBox->setBackGroundColorType(cocos2d::ui::Layout::BackGroundColorType::SOLID);
+    messageBox->setBackGroundColorOpacity(192);
+    messageBox->setBackGroundColor(cocos2d::Color3B(192, 113, 0.0f));
+    messageBox->setPosition(cocos2d::Vec2(300, 200));
 
-    ActionScroller* scroller = ActionScroller::createActionScroller();
-    scroller->setContentSize(cocos2d::Size(150, 64));
-    scroller->setDirection(ActionScroller::Direction::VERTICAL);
-    scroller->addChild(Action::createAction("Action_Build.png", "Upgrade building bla bla bla bla bla"));
-    scroller->addChild(Action::createAction("Action_Attack.png", "Attack selected unit"));
-    scroller->addChild(Action::createAction("Action_Attack.png", "Attack selected unit"));
-
-    //addChild(action);
-
-//    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
-//    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
-//    scroller->addChild(cocos2d::Sprite::create("HelloWorld.png"));
-    scroller->setPosition(cocos2d::Vec2(196, 196));
-    scroller->setScrollBarEnabled(false);
-    addChild(scroller);
-
+    addChild(messageBox);
     return true;
 }
 
