@@ -1,7 +1,9 @@
 #include "GameScene.h"
 #include "GameClassesManager.h"
 #include "MediaManager.h"
+#include "ConfigLoader.h"
 #include "GameLayer.h"
+#include "Globals.h"
 
 GameScene* GameScene::createScene() {
     return GameScene::create();
@@ -15,7 +17,14 @@ bool GameScene::init() {
     if(!GameClassesManager::getInstance()->parseJsonFile("classes.json")) return false;
     MediaManager::getInstance()->loadSpritesheet("sheet.plist");
 
+    ConfigLoader::getInstance()->loadConfig("config.json");
+
+    _uiLayer = cocos2d::Node::create();
+    _uiLayer->setTag(TAGS::UI_LAYER_TAG);
+    addChild(_uiLayer);
+
     if(!initGameLayer()) return false;
+
 
     //DEBUG
     _debugDrawer = cocos2d::DrawNode::create();
@@ -34,6 +43,7 @@ bool GameScene::initGameLayer() {
     _gameLayer->setPosition(0.1*visibleSize);
     _gameLayer->setInnerContainerSize(cocos2d::Size(27 * 32, 27 * 32));  //TODO: загрузка конфигурации из json
     _gameLayer->setInnerContainerPosition(_gameLayer->getInnerContainerSize() * 0.5f);
+    _gameLayer->setTag(TAGS::GAME_LAYER_TAG);
     addChild(_gameLayer);
 
     return true;

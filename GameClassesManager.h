@@ -24,14 +24,9 @@ private:
     GameClassesManager(const GameClassesManager&);
     GameClassesManager& operator=(const GameClassesManager&);
 
-
-    void loadUnits(nlohmann::json& json);
-    void loadBuildings(nlohmann::json& json);
     //void loadCards(nlohmann:json& json);
 
-    std::map<std::string, Unit> _units;
-    std::map<std::string, Building> _buildings;
-    //std::map<std::string, Card> _cards;
+    nlohmann::json _json;
 };
 
 #endif // GAMECLASSESMANAGER_H_INCLUDED

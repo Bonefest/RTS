@@ -1,15 +1,7 @@
 #include "NetworkObject.h"
 
-NetworkObject& NetworkObject::operator=(const NetworkObject& object) {
-    if(this == &object) return *this;
-
-    _name = object._name;
-    _description = object._description;
-
-    _cost = object._cost;
-    _defense = object._defense;
-    _maximalHP = object._maximalHP;
-    _sprite = cocos2d::Sprite::createWithSpriteFrame(object._sprite->getSpriteFrame());
+NetworkObject::~NetworkObject() {
+    _button->removeFromParentAndCleanup(true);
 }
 
 bool NetworkObject::initWithJson(nlohmann::json& json) {
@@ -19,19 +11,21 @@ bool NetworkObject::initWithJson(nlohmann::json& json) {
     setCost(json["Cost"]);
     setDefense(json["Defense"]);
     setMaximalHP(json["MaximalHP"]);
-    _sprite = cocos2d::Sprite::create(json["Sprite"]);
+    _button = cocos2d::ui::Button::create(json["Sprite"], "", "", cocos2d::ui::Button::TextureResType::PLIST);
+    _button->addTouchEventListener(CC_CALLBACK_2(NetworkObject::onTouch, this));
 
     return true;
 }
 
-std::shared_ptr<NetworkObject> NetworkObject::clone() {
-    std::shared_ptr<NetworkObject> object = std::make_shared<NetworkObject>();
+bool NetworkObject::onTouch(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType type) {
+    switch(type) {
+    case cocos2d::ui::Widget::TouchEventType::BEGAN: onTouchBegan(ref); return true;
+    case cocos2d::ui::Widget::TouchEventType::ENDED: onTouchEnded(ref); return true;
+    case cocos2d::ui::Widget::TouchEventType::CANCELED: onTouchCancelled(ref); return true;
+    case cocos2d::ui::Widget::TouchEventType::MOVED: onTouchMoved(ref); return true;
+    }
 
-    *object = *this;
-    if(_sprite->getParent())
-        _sprite->getParent()->addChild(_sprite);
-
-    return object;
+    return false;
 }
 
 void NetworkObject::onSerialize(RakNet::VariableDeltaSerializer* serializer) {
@@ -67,9 +61,9 @@ void NetworkObject::setHP(double hp) {
 }
 
 void NetworkObject::setPosition(const cocos2d::Vec2& position) {
-    _sprite->setPosition(position);
+    _button->setPosition(position);
 }
 
 const cocos2d::Vec2& NetworkObject::getPosition() const {
-    return _sprite->getPosition();
+    return _button->getPosition();
 }

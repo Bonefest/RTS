@@ -1,11 +1,16 @@
 #include "MessageBox.h"
+#include "ConfigLoader.h"
 
 MessageBox* MessageBox::createBox(const std::string& title, const cocos2d::Size& size) {
     MessageBox* messageBox = new MessageBox();
     if(messageBox->init()) {
         messageBox->autorelease();
-        messageBox->setContentSize(size);
-        messageBox->setInnerContainerSize(size);
+
+        if(size.height != 0 && size.width != 0) {
+            messageBox->setContentSize(size);
+            messageBox->setInnerContainerSize(size);
+        }
+
         messageBox->setTitle(title);
 
         return messageBox;
@@ -30,11 +35,21 @@ bool MessageBox::init() {
 
     generateAcceptButton();
 
+    setContentSize(ConfigLoader::getInstance()->getSize("MessageBox_default_size"));
+    setInnerContainerSize(getContentSize());
+
+    cocos2d::Color4B backgroundColor = ConfigLoader::getInstance()->getColor("MessageBox_background_color");
+    setBackGroundColorType(cocos2d::ui::Layout::BackGroundColorType::SOLID);
+    setBackGroundColorOpacity(backgroundColor.a);
+    setBackGroundColor(cocos2d::Color3B(backgroundColor));
+
     return true;
 }
 
 void MessageBox::setTitle(const std::string& title) {
-    cocos2d::Label* titleLabel = cocos2d::Label::createWithTTF(title, "fonts/arial.ttf", 16);
+    cocos2d::Label* titleLabel = cocos2d::Label::createWithTTF(title,
+                                                               ConfigLoader::getInstance()->getString("MessageBox_font"),
+                                                               ConfigLoader::getInstance()->getInteger("MessageBox_fontsize"));
     titleLabel->setAlignment(cocos2d::TextHAlignment::CENTER,
                              cocos2d::TextVAlignment::CENTER);
 

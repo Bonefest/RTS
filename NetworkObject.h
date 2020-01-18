@@ -8,6 +8,7 @@
 #include "../RakNet/Source/ReplicaManager3.h"
 
 #include "NetworkObjectReplica.h"
+#include "ui/UIButton.h"
 
 #include <memory>
 //
@@ -21,11 +22,8 @@
 
 class NetworkObject {
 public:
-    NetworkObject& operator=(const NetworkObject& object);
-
+    virtual ~NetworkObject();
     virtual bool initWithJson(nlohmann::json& json);
-
-    virtual std::shared_ptr<NetworkObject> clone();
 
     virtual void onSerialize(RakNet::VariableDeltaSerializer* serializer);
     virtual void onDeserialize(RakNet::VariableDeltaSerializer* serializer);
@@ -51,10 +49,19 @@ public:
     void setPosition(const cocos2d::Vec2& position);
     inline const cocos2d::Vec2& getPosition() const;
 
-    inline cocos2d::Sprite* getSprite() { return _sprite; }
+    virtual void onTouchBegan(cocos2d::Ref* ref) { }
+    virtual void onTouchEnded(cocos2d::Ref* ref) { }
+    virtual void onTouchCancelled(cocos2d::Ref* ref) { }
+    virtual void onTouchMoved(cocos2d::Ref* ref) { }
+
+    void addToScene(cocos2d::Node* scene) {
+        scene->addChild(_button);
+    }
 
 private:
-    cocos2d::Sprite* _sprite;
+    bool onTouch(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type);
+
+    cocos2d::ui::Button* _button;
 
     //StateMachine с уже реализованными состояними? Просто дать возможность аля setState(BUILDING) или setState(IDLE)
 

@@ -1,0 +1,11 @@
+#ifndef GLOBALS_H_INCLUDED
+#define GLOBALS_H_INCLUDED
+
+enum TAGS {
+    GAME_LAYER_TAG = 1,
+    UI_LAYER_TAG,
+
+    UI_ACTION_SCROLLER
+};
+
+#endif // GLOBALS_H_INCLUDED

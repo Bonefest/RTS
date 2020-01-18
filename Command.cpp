@@ -1,5 +1,6 @@
 #include "Command.h"
 #include "MessageBox.h"
+#include "ConfigLoader.h"
 
 ShowObjectInformation::ShowObjectInformation(cocos2d::Node* uiLayer,
                                              NetworkObject* object) {
@@ -22,11 +23,11 @@ void ShowObjectInformation::execute() {
 }
 
 void ShowObjectInformation::createMessageBox() {
-    MessageBox* messageBox = MessageBox::createBox(_object->getName(), cocos2d::Size(200, 400));
-    messageBox->setOffsetX(25.0f);
-    messageBox->addElement(_object->getSprite(), MessageBox::AlignPosition::CENTER);
+    MessageBox* messageBox = MessageBox::createBox(_object->getName());
+    //messageBox->addElement(_object->getSprite(), MessageBox::AlignPosition::CENTER);
     cocos2d::Label* descriptionLabel = cocos2d::Label::createWithTTF(_object->getDescription(),
-                                                                     "fonts/arial.ttf", 16);
+                                                                     ConfigLoader::getInstance()->getString("MessageBox_font"),
+                                                                     ConfigLoader::getInstance()->getInteger("MessageBox_fontsize"));
     descriptionLabel->setMaxLineWidth(messageBox->getContentSize().width * 0.8f);
     messageBox->addElement(descriptionLabel);
 
@@ -34,10 +35,6 @@ void ShowObjectInformation::createMessageBox() {
 
     cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
     messageBox->setPosition(visibleSize * 0.5);
-
-    messageBox->setBackGroundColorType(cocos2d::ui::Layout::BackGroundColorType::SOLID);
-    messageBox->setBackGroundColorOpacity(128);
-    messageBox->setBackGroundColor(cocos2d::Color3B(128, 128, 128));
 
     _uiLayer->addChild(messageBox);
 }

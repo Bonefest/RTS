@@ -1,7 +1,9 @@
 #include "GameLayer.h"
 #include "GameClassesManager.h"
 #include "MediaManager.h"
+#include "ConfigLoader.h"
 #include "MessageBox.h"
+#include "Globals.h"
 
 GameLayer* GameLayer::createGameLayer() {
     return GameLayer::create();
@@ -13,20 +15,28 @@ bool GameLayer::init() {
     setDirection(Direction::BOTH);
     setScrollBarEnabled(false);
 
-    if(!gridDrawer.init(this, cocos2d::Color4F::WHITE, cocos2d::Vec2(64, 64), cocos2d::Size(32, 32), 24, 24))
+    if(!gridDrawer.init(this, cocos2d::Color4F::WHITE,
+                        cocos2d::Vec2(64, 64),
+                        ConfigLoader::getInstance()->getSize("Grid_size"),
+                        ConfigLoader::getInstance()->getInteger("Grid_hnumber"),
+                        ConfigLoader::getInstance()->getInteger("Grid_vnumber"))) {
         return false;
+    }
 
-    MessageBox* messageBox = MessageBox::createBox("Castle", cocos2d::Size(200, 300));
+    MessageBox* messageBox = MessageBox::createBox("Castle");
     cocos2d::Label* desc = cocos2d::Label::createWithTTF("glsdlgsdlgl gsldgls glglsdlglsdg l.",
                                                          "fonts/arial.ttf", 26);
     messageBox->addElement(desc);
     messageBox->setAnchorPoint(cocos2d::Vec2::ANCHOR_MIDDLE);
-    messageBox->setBackGroundColorType(cocos2d::ui::Layout::BackGroundColorType::SOLID);
-    messageBox->setBackGroundColorOpacity(192);
-    messageBox->setBackGroundColor(cocos2d::Color3B(192, 113, 0.0f));
-    messageBox->setPosition(cocos2d::Vec2(300, 200));
+    messageBox->setPosition(cocos2d::Director::getInstance()->getVisibleSize() * 0.5);
 
     addChild(messageBox);
+
+    auto test = GameClassesManager::getInstance()->getBuilding("Castle");
+    test->setPosition(cocos2d::Vec2(500, 500));
+    test->addToScene(this);
+
+    //cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(TAGS::UI_LAYER_TAG)->addChild(messageBox);
     return true;
 }
 

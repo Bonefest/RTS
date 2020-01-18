@@ -11,7 +11,7 @@ public:
     enum AlignPosition {LEFT, CENTER, RIGHT};
 
     CREATE_FUNC(MessageBox);
-    static MessageBox* createBox(const std::string& title, const cocos2d::Size& size);
+    static MessageBox* createBox(const std::string& title, const cocos2d::Size& size = cocos2d::Size::ZERO);
     bool init();
 
     void addElement(cocos2d::Node* element, AlignPosition align = LEFT);

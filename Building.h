@@ -5,12 +5,13 @@
 
 class Building: public NetworkObject {
 public:
-
-    //std::shared_ptr<Building> clone();
+    ~Building() { };
 
     void onSerialize(RakNet::VariableDeltaSerializer* serializer) { }
     void onDeserialize(RakNet::VariableDeltaSerializer* serializer) { }
 
+    void onTouchBegan(cocos2d::Ref* ref) { }
+    void onTouchEnded(cocos2d::Ref* ref) { }
 };
 
 

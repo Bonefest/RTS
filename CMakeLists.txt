@@ -63,6 +63,7 @@ list(APPEND GAME_SOURCE
      Classes/Action.cpp
      Classes/Command.cpp
      Classes/MessageBox.cpp
+     Classes/ConfigLoader.cpp
      Classes/json.hpp
      )
 list(APPEND GAME_HEADER
@@ -80,6 +81,8 @@ list(APPEND GAME_HEADER
      Classes/Command.h
      Classes/MessageBox.h
      Classes/Action.h
+     Classes/Globals.h
+     Classes/ConfigLoader.h
      )
 
 if(ANDROID)

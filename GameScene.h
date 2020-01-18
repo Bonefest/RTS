@@ -20,6 +20,7 @@ private:
     bool initGameLayer();
 
     GameLayer* _gameLayer;
+    Node* _uiLayer;
     cocos2d::DrawNode* _debugDrawer;
 
     cocos2d::Size visibleSize;

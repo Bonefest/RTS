@@ -1,4 +1,5 @@
 #include "Action.h"
+#include "ConfigLoader.h"
 
 Action* Action::createAction(const std::string& iconName,
                              const std::string& title,
@@ -24,7 +25,9 @@ bool Action::init(const std::string& iconName,
     if(_icon == nullptr) return false;
 
     //TODO: action font configuration with json
-    _title = cocos2d::Label::createWithTTF(title, "fonts/arial.ttf", 16);
+    _title = cocos2d::Label::createWithTTF(title,
+                                           ConfigLoader::getInstance()->getString("Action_font"),
+                                           ConfigLoader::getInstance()->getInteger("Action_fontsize"));
     if(_title == nullptr) return false;
 
     _useButton = cocos2d::ui::Button::create(useButtonImageName == ""?"use.png":useButtonImageName, "", "", cocos2d::ui::Widget::TextureResType::PLIST);
