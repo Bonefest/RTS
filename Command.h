@@ -23,6 +23,8 @@ public:
 class ShowObjectInformation: public Command {
 public:
     ShowObjectInformation(cocos2d::Node* uiLayer, NetworkObject* object);
+    const std::string& getInfo() { return "This information need to be saved in json"; }
+    const std::string& getCommandName() { return "Show information"; }
 
     virtual void execute();
 
@@ -35,4 +37,11 @@ private:
     NetworkObject* _object;
 };
 
+/*
+class UpgradeObject: public Command {
+public:
+    UpgradeObject(Requirements requirements, NetworkObject* object);
+
+};
+*/
 #endif // COMMAND_H_INCLUDED

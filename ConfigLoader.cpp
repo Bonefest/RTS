@@ -44,3 +44,7 @@ cocos2d::Color4B ConfigLoader::getColor(const std::string& key) {
 cocos2d::Size ConfigLoader::getSize(const std::string& key) {
     return cocos2d::Size(_jsonConfig[key][0], _jsonConfig[key][1]);
 }
+
+cocos2d::Vec2 ConfigLoader::getVec2(const std::string& key) {
+    return cocos2d::Vec2(_jsonConfig[key][0], _jsonConfig[key][1]);
+}

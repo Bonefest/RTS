@@ -23,18 +23,11 @@ bool GameLayer::init() {
         return false;
     }
 
-    MessageBox* messageBox = MessageBox::createBox("Castle");
-    cocos2d::Label* desc = cocos2d::Label::createWithTTF("glsdlgsdlgl gsldgls glglsdlglsdg l.",
-                                                         "fonts/arial.ttf", 26);
-    messageBox->addElement(desc);
-    messageBox->setAnchorPoint(cocos2d::Vec2::ANCHOR_MIDDLE);
-    messageBox->setPosition(cocos2d::Director::getInstance()->getVisibleSize() * 0.5);
+    setBackGroundColorType(BackGroundColorType::SOLID);
+    setBackGroundColor(cocos2d::Color3B(51, 255, 51));
 
-    addChild(messageBox);
-
-    auto test = GameClassesManager::getInstance()->getBuilding("Castle");
-    test->setPosition(cocos2d::Vec2(500, 500));
-    test->addToScene(this);
+    world.setGameLayer(this);
+    world.initWorld();
 
     //cocos2d::Director::getInstance()->getRunningScene()->getChildByTag(TAGS::UI_LAYER_TAG)->addChild(messageBox);
     return true;
@@ -43,4 +36,8 @@ bool GameLayer::init() {
 void GameLayer::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& mat4, uint32_t flag) {
     cocos2d::ui::ScrollView::draw(renderer, mat4, flag);
     gridDrawer.draw();
+}
+
+void GameLayer::setGridEnabled(bool enabled) {
+    gridDrawer.setVisible(enabled);
 }

@@ -10,18 +10,18 @@ public:
     static ActionScroller* createActionScroller();
     bool init();
 
-    void addChild(Node* child);
-    void setParent(cocos2d::Node* parent);
-
-    void removeFromParent();
-    void removeFromParentAndCleanup(bool cleanup);
+    void addAction(Node* action);
 
     void setPosition(const cocos2d::Vec2& position);
+    void setSideOffset(const cocos2d::Vec2& offset);
 
     bool onCloseButtonTouched(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType type);
 private:
+    void recalculateSize(cocos2d::Node* newAction);
+
     cocos2d::ui::Button* _closeButton;
     cocos2d::Vec2 _contextOffset;
+    cocos2d::Vec2 _sideOffset;
 };
 
 #endif // ACTIONSCROLLER_H_INCLUDED

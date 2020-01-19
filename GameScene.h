@@ -4,6 +4,8 @@
 #include "cocos2d.h"
 #include "GridDrawer.h"
 #include "GameLayer.h"
+#include "BackgroundTerrainGenerator.h"
+#include "ui/UIButton.h"
 
 class GameScene: public cocos2d::Scene {
 public:
@@ -16,15 +18,21 @@ public:
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
     void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
+
+    bool onGridButtonTouched(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType type);
 private:
     bool initGameLayer();
+    bool initTerrainGenerator();
+    bool initMenuButtons();
 
     GameLayer* _gameLayer;
     Node* _uiLayer;
+    BackgroundTerrainGenerator _terrainGenerator;
+    cocos2d::ui::Button* _enableGridButton;
+    cocos2d::ui::Button* _disableGridButton;
     cocos2d::DrawNode* _debugDrawer;
 
     cocos2d::Size visibleSize;
-    //BackgroundTerrainGenerator - генерирует тайлы для заднего фона игры(не нужно реплицировать)
 };
 
 #endif // GAMESCENE_H_INCLUDED

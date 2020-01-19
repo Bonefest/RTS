@@ -28,8 +28,11 @@ void ShowObjectInformation::createMessageBox() {
     cocos2d::Label* descriptionLabel = cocos2d::Label::createWithTTF(_object->getDescription(),
                                                                      ConfigLoader::getInstance()->getString("MessageBox_font"),
                                                                      ConfigLoader::getInstance()->getInteger("MessageBox_fontsize"));
+    descriptionLabel->setAnchorPoint(cocos2d::Vec2::ANCHOR_MIDDLE);
+    descriptionLabel->setAlignment(cocos2d::TextHAlignment::CENTER,
+                                   cocos2d::TextVAlignment::CENTER);
     descriptionLabel->setMaxLineWidth(messageBox->getContentSize().width * 0.8f);
-    messageBox->addElement(descriptionLabel);
+    messageBox->addElement(descriptionLabel, MessageBox::AlignPosition::CENTER);
 
     messageBox->setAnchorPoint(cocos2d::Vec2::ANCHOR_MIDDLE);
 

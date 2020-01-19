@@ -1,4 +1,5 @@
 #include "ActionScroller.h"
+#include "ConfigLoader.h"
 
 ActionScroller* ActionScroller::createActionScroller() {
     return ActionScroller::create();
@@ -11,43 +12,53 @@ bool ActionScroller::init() {
 
     _contextOffset = cocos2d::Vec2::ZERO;
     _closeButton = cocos2d::ui::Button::create("close.png", "", "", TextureResType::PLIST);
-    _closeButton->setAnchorPoint(cocos2d::Vec2::ANCHOR_BOTTOM_LEFT);
+    _closeButton->setAnchorPoint(cocos2d::Vec2::ANCHOR_TOP_RIGHT);
     _closeButton->setPosition(cocos2d::Vec2::ZERO);
+    _closeButton->setContentSize(ConfigLoader::getInstance()->getSize("Action_default_size"));
     _closeButton->addTouchEventListener(CC_CALLBACK_2(ActionScroller::onCloseButtonTouched, this));
+    addChild(_closeButton);
+
+    setSideOffset(ConfigLoader::getInstance()->getVec2("Action_side_offset"));
+
+    cocos2d::Color4B backgroundColor = ConfigLoader::getInstance()->getColor("Action_background_color");
+    setBackGroundColorType(cocos2d::ui::ScrollView::BackGroundColorType::SOLID);
+    setBackGroundColor(cocos2d::Color3B(backgroundColor));
+    setBackGroundColorOpacity(backgroundColor.a);
 
     return true;
 }
 
-void ActionScroller::addChild(Node* child) {
-    cocos2d::ui::ScrollView::addChild(child);
+void ActionScroller::addAction(Node* child) {
+    addChild(child);
 
-    child->setAnchorPoint(cocos2d::Vec2::ANCHOR_BOTTOM_LEFT);
-    child->setPosition(getPosition() + cocos2d::Vec2(0, _contextOffset.y));
+    child->setAnchorPoint(cocos2d::Vec2::ANCHOR_TOP_LEFT);
+    child->setPosition(cocos2d::Vec2(_sideOffset.x, getContentSize().height -
+                                                   (_contextOffset.y + _sideOffset.y)));
     _contextOffset.y += child->getContentSize().height;
-    setContentSize(cocos2d::Size(std::max(getContentSize().width, child->getContentSize().width), getContentSize().height));
-    setInnerContainerSize(cocos2d::Size(getContentSize().width, std::max(_contextOffset.y, getContentSize().height)));
+    recalculateSize(child);
 
-    _closeButton->setPosition(getPosition() + getContentSize());
+    _closeButton->setPosition(getContentSize());
 }
 
-void ActionScroller::setParent(cocos2d::Node* parent) {
-    cocos2d::ui::ScrollView::setParent(parent);
-    if(parent != nullptr) parent->addChild(_closeButton);
-}
+void ActionScroller::recalculateSize(cocos2d::Node* newAction) {
+    cocos2d::Size newContentSize = getContentSize();
+    newContentSize.width = std::max(newContentSize.width, newAction->getContentSize().width +
+                                                          _closeButton->getContentSize().width +
+                                                          2*_sideOffset.x);
+    cocos2d::Size newInnerContainerSize = newContentSize;
+    newInnerContainerSize.height = std::max(_contextOffset.y + _sideOffset.y, newInnerContainerSize.height);
 
-void ActionScroller::removeFromParent() {
-    cocos2d::ui::ScrollView::removeFromParent();
-    _closeButton->removeFromParent();
-}
-
-void ActionScroller::removeFromParentAndCleanup(bool cleanup) {
-    cocos2d::ui::ScrollView::removeFromParentAndCleanup(cleanup);
-    _closeButton->removeFromParentAndCleanup(cleanup);
+    setContentSize(newContentSize);
+    setInnerContainerSize(newInnerContainerSize);
 }
 
 void ActionScroller::setPosition(const cocos2d::Vec2& position) {
     cocos2d::ui::ScrollView::setPosition(position);
-    _closeButton->setPosition(position + getContentSize());
+    _closeButton->setPosition(getContentSize());
+}
+
+void ActionScroller::setSideOffset(const cocos2d::Vec2& offset) {
+    _sideOffset = offset;
 }
 
 bool ActionScroller::onCloseButtonTouched(cocos2d::Ref* ref,

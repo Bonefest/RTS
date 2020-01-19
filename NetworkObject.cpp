@@ -11,6 +11,9 @@ bool NetworkObject::initWithJson(nlohmann::json& json) {
     setCost(json["Cost"]);
     setDefense(json["Defense"]);
     setMaximalHP(json["MaximalHP"]);
+
+    addActionName("ShowInfo");
+    setActionNames(json["Actions"]);
     _button = cocos2d::ui::Button::create(json["Sprite"], "", "", cocos2d::ui::Button::TextureResType::PLIST);
     _button->addTouchEventListener(CC_CALLBACK_2(NetworkObject::onTouch, this));
 
@@ -66,4 +69,14 @@ void NetworkObject::setPosition(const cocos2d::Vec2& position) {
 
 const cocos2d::Vec2& NetworkObject::getPosition() const {
     return _button->getPosition();
+}
+
+void NetworkObject::addActionName(const std::string& name) {
+    _actionNames.push_back(name);
+}
+
+void NetworkObject::setActionNames(const std::vector<std::string>& actions) {
+    for(auto& name: actions) {
+        _actionNames.push_back(name);
+    }
 }

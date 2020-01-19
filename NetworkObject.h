@@ -49,6 +49,13 @@ public:
     void setPosition(const cocos2d::Vec2& position);
     inline const cocos2d::Vec2& getPosition() const;
 
+    void addActionName(const std::string& actionName);
+
+    void setActionNames(const std::vector<std::string>& actions);
+    const std::vector<std::string>& getActionNames() const { return _actionNames; }
+
+    void clearActions() { _actionNames.clear(); }
+
     virtual void onTouchBegan(cocos2d::Ref* ref) { }
     virtual void onTouchEnded(cocos2d::Ref* ref) { }
     virtual void onTouchCancelled(cocos2d::Ref* ref) { }
@@ -58,12 +65,12 @@ public:
         scene->addChild(_button);
     }
 
+    cocos2d::ui::Button* getButton() { return _button; }
+
 private:
     bool onTouch(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type);
 
     cocos2d::ui::Button* _button;
-
-    //StateMachine с уже реализованными состояними? Просто дать возможность аля setState(BUILDING) или setState(IDLE)
 
     std::string _name;
     std::string _description;
@@ -71,6 +78,8 @@ private:
     RakNet::Replica3Composite<NetworkObjectReplica> _replica;
     //std::vector<Action*> actions;
     //std::map<std::string, Animation*> animations;
+
+    std::vector<std::string> _actionNames;
 
     double _cost;
     double _defense;

@@ -84,6 +84,10 @@ bool Action::isInitialized() {
 }
 
 
+void Action::setCommand(std::shared_ptr<Command> command) {
+    _command = command;
+}
+
 bool Action::onIconClicked(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType type) {
     if(type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
         //showInfo
@@ -91,8 +95,8 @@ bool Action::onIconClicked(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventTyp
 }
 
 bool Action::onUseButtonClicked(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType type) {
-    if(type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-        removeFromParentAndCleanup(true);
+    if(type == cocos2d::ui::Widget::TouchEventType::ENDED) {
+        getParent()->removeFromParentAndCleanup(true);
         _command->execute();
     }
 }

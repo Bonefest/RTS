@@ -11,7 +11,7 @@ public:
     void onDeserialize(RakNet::VariableDeltaSerializer* serializer) { }
 
     void onTouchBegan(cocos2d::Ref* ref) { }
-    void onTouchEnded(cocos2d::Ref* ref) { }
+    void onTouchEnded(cocos2d::Ref* ref);
 };
 
 

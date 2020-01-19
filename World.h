@@ -8,12 +8,15 @@
 
 class World {
 public:
+
+    void setGameLayer(cocos2d::Node* layer);
     bool initWorld();
 
 private:
     std::vector<std::vector<std::shared_ptr<NetworkObject> > > _buildings;
     std::vector<std::vector<std::shared_ptr<NetworkObject> > > _units;
-
+    cocos2d::Node* _layer;
+    //std::vector<Card> _availableCards;
 };
 
 #endif // WORLD_H_INCLUDED

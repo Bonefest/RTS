@@ -10,7 +10,7 @@ bool GridDrawer::init(cocos2d::Node* scene) {
     if(_drawer == nullptr) {
         return false;
     }
-    scene->addChild(_drawer);
+    scene->addChild(_drawer, 1);
     return true;
 }
 
